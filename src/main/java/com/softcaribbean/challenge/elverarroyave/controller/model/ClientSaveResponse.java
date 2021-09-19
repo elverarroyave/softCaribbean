@@ -4,6 +4,9 @@ import com.softcaribbean.challenge.elverarroyave.model.Client;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder(toBuilder = true)
 public class ClientSaveResponse {
@@ -26,5 +29,14 @@ public class ClientSaveResponse {
                 .email(clientToResponse.getEmail())
                 .gender(clientToResponse.getGender())
                 .build();
+    }
+
+    public static List<ClientSaveResponse> fromModelList(List<Client> clientsToResponse){
+        List<ClientSaveResponse> clientsSaveResponse = new ArrayList<>();
+
+        for (Client clientToResponse : clientsToResponse) {
+            clientsSaveResponse.add(ClientSaveResponse.fromModel(clientToResponse));
+        }
+        return  clientsSaveResponse;
     }
 }

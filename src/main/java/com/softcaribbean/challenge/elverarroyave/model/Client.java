@@ -5,7 +5,7 @@ import lombok.Builder;
 import javax.persistence.*;
 
 @Builder(toBuilder = true)
-@Entity(name = "Client")
+@Entity(name = "CLIENT")
 @Table(name="CLIENT")
 public class Client implements Comparable<Client>{
 

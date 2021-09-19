@@ -1,108 +1,67 @@
 package com.softcaribbean.challenge.elverarroyave.service;
 
+import com.softcaribbean.challenge.elverarroyave.configuration.exeption.BadRequestException;
 import com.softcaribbean.challenge.elverarroyave.model.Client;
+import com.sun.source.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BSTImpl implements BST<Client> {
+public class BSTImpl implements BST{
 
-    private Client valor;
-
-    private BSTImpl left, right;
+    private TreeNode root;
 
     private int amount;
 
-    @Override
-    public void insert(Client client) {
-        if(valor == null){
-            this.valor = client;
-            amount++;
-        }else{
-            if(client.compareTo(valor) < 0){
-                if(left == null) left = new BSTImpl();
-                left.insert(client);
-                amount++;
-            }else if (client.compareTo(valor) > 0){
-                if(right == null) right = new BSTImpl();
-                right.insert(client);
-                amount++;
-            } else {
-                // Throw new
-            }
-        }
+    public BSTImpl(){
+        root = null;
     }
 
     @Override
-    public boolean exist(long numDocument) {
-        if(valor!=null){
-            if(valor.getNumDocument() == numDocument){
-                return true;
-            }else if(valor.getNumDocument() < numDocument && right != null){
-                return right.exist(numDocument);
-            } else if(valor.getNumDocument() > numDocument && left != null){
-                return left.exist(numDocument);
-            } else {
-                //Throw new
-                return false;
-            }
+    public void insert(TreeNode newNode) {
+        if(root == null){
+            this.root = newNode;
+            amount++;
         }else{
-            //Throw new
-            return false;
+            TreeNode aux = root;
+            TreeNode dad;
+            while(true){
+                dad = aux;
+                if(newNode.getClient().getNumDocument() < aux.getClient().getNumDocument()){
+                    aux=aux.getLeftNode();
+                    if(aux==null){
+                        dad.setLeftNode(newNode);
+                        amount++;
+                        return;
+                    }
+                } else{
+                    aux=aux.getRightNode();
+                    if(aux==null){
+                        dad.setRightNode(newNode);
+                        amount++;
+                        return;
+                    }
+                }
+            }
         }
     }
 
     @Override
     public Client get(long numDocument) {
-        System.out.println("Salto");
-        if(valor !=null){
-            if(valor.getNumDocument() == numDocument){
-                return valor;
-            }else if(valor.getNumDocument()<numDocument && right != null){
-                return right.get(numDocument);
-            }else if(valor.getNumDocument()>numDocument && left != null){
-                return  left.get(numDocument);
+        int jump = 0;
+        TreeNode aux = root;
+        while(aux.getClient().getNumDocument() != numDocument){
+            if(numDocument<aux.getClient().getNumDocument()) {
+                aux = aux.getLeftNode();
             }else{
-                return null;
+                aux = aux.getRightNode();
+            } if(aux==null){
+                throw new BadRequestException("Client with number document: " +  numDocument + " not found. Check number document please.");
             }
-        }else{
-            return null;
+            jump++;
         }
+        System.out.println("Jumps:" + jump);
+        return aux.getClient();
     }
 
-    private List<Client> clients = new ArrayList<>();
-
-    @Override
-    public List<Client> preorder() {
-        if (valor != null){
-             clients.add(valor);
-             if(left != null) left.preorder();
-             if(right != null) right.preorder();
-        }
-        return clients;
-    }
-
-    @Override
-    public List<Client> inorder() {
-        if (valor != null){
-            if(left != null) left.inorder();
-            clients.add(valor);
-            if(right != null) right.inorder();
-        }
-        return clients;
-    }
-
-    @Override
-    public List<Client> postorder() {
-        if(valor != null){
-            if(left != null) left.postorder();
-            if(right != null) right.postorder();
-            clients.add(valor);
-        }
-        return clients;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
 }

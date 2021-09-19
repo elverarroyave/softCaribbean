@@ -1,6 +1,6 @@
 package com.softcaribbean.challenge.elverarroyave.controller.model;
 
-import com.softcaribbean.challenge.elverarroyave.service.mode.ClientSaveCmd;
+import com.softcaribbean.challenge.elverarroyave.service.model.ClientSaveCmd;
 import lombok.Builder;
 import lombok.Data;
 

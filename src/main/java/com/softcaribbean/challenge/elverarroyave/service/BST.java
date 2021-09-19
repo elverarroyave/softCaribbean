@@ -4,18 +4,10 @@ import com.softcaribbean.challenge.elverarroyave.model.Client;
 
 import java.util.List;
 
-public interface BST<T extends Comparable>{
+public interface BST{
 
-    void insert(T client);
+    void insert(TreeNode newNode);
 
-    boolean exist(long numDocument);
-
-    T get(long numDocument);
-
-    List<Client> preorder();
-
-    List<Client> inorder();
-
-    List<Client> postorder();
+    Client get(long numDocument);
 
 }

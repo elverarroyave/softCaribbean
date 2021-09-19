@@ -1,4 +1,4 @@
-package com.softcaribbean.challenge.elverarroyave.service.mode;
+package com.softcaribbean.challenge.elverarroyave.service.model;
 
 import com.softcaribbean.challenge.elverarroyave.model.Client;
 import lombok.Builder;
