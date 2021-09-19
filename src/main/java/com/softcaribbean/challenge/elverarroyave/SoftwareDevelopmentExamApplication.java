@@ -17,6 +17,8 @@ public class SoftwareDevelopmentExamApplication {
 		ConfigurableApplicationContext configurableApplicationContext =
 				SpringApplication.run(SoftwareDevelopmentExamApplication.class, args);
 
+		/*
+
 		//Beans
 		ClientRepository clientRepository = configurableApplicationContext.getBean(ClientRepository.class);
 
@@ -27,8 +29,7 @@ public class SoftwareDevelopmentExamApplication {
 
 		clients.forEach(bst::insert);
 
-		System.out.println("Amount: " + bst.getAmount());
 
-		System.out.println("Get client: " + bst.get(999).fullName());
+		 */
 	}
 }

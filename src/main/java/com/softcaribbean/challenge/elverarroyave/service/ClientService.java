@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface ClientService {
 
-    List<Client> findAll();
-
     Client save(@NotNull ClientSaveCmd clientSaveResponse);
+
+    Client findByDocument(@NotNull long numDocument);
+
+    List<Client> findAll(int order);
 }

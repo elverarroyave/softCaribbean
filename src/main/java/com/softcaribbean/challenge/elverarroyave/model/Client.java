@@ -13,6 +13,8 @@ public class Client implements Comparable<Client>{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private long numDocument;
+
     private String firstName;
 
     private String lastName;
@@ -65,10 +67,27 @@ public class Client implements Comparable<Client>{
         return firstName + " " + lastName;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Long getNumDocument() {
+        return numDocument;
+    }
+
+    public void setNumDocument(Long numDocument) {
+        this.numDocument = numDocument;
+    }
+
     public Client(){}
 
-    public Client(Long id, String firsName, String lastName, String email, String gender) {
+    public Client(Long id, Long numDocument, String firsName, String lastName, String email, String gender) {
         this.id = id;
+        this.numDocument = numDocument;
         this.firstName = firsName;
         this.lastName = lastName;
         this.email = email;
@@ -77,9 +96,9 @@ public class Client implements Comparable<Client>{
 
     @Override
     public int compareTo(Client client) {
-        if (id == client.id){
+        if (numDocument == client.numDocument){
             return 0;
-        }else if(id < client.id){
+        }else if(numDocument < client.numDocument){
             return -1;
         }else {
             return 1;

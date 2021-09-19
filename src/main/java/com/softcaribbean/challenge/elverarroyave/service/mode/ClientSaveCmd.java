@@ -7,6 +7,9 @@ import lombok.Data;
 @Data
 @Builder
 public class ClientSaveCmd {
+
+    private long numDocument;
+
     private String firstName;
 
     private String lastName;
@@ -17,6 +20,7 @@ public class ClientSaveCmd {
 
     public static Client toModel(ClientSaveCmd clientToSaveCmd){
         return  Client.builder()
+                .numDocument(clientToSaveCmd.getNumDocument())
                 .firstName(clientToSaveCmd.firstName)
                 .lastName(clientToSaveCmd.lastName)
                 .email(clientToSaveCmd.email)

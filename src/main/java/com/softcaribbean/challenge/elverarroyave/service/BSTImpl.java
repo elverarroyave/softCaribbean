@@ -2,6 +2,9 @@ package com.softcaribbean.challenge.elverarroyave.service;
 
 import com.softcaribbean.challenge.elverarroyave.model.Client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BSTImpl implements BST<Client> {
 
     private Client valor;
@@ -9,8 +12,6 @@ public class BSTImpl implements BST<Client> {
     private BSTImpl left, right;
 
     private int amount;
-
-    private int jump = 0;
 
     @Override
     public void insert(Client client) {
@@ -33,14 +34,14 @@ public class BSTImpl implements BST<Client> {
     }
 
     @Override
-    public boolean exist(int id) {
+    public boolean exist(long numDocument) {
         if(valor!=null){
-            if(valor.getId() == id){
+            if(valor.getNumDocument() == numDocument){
                 return true;
-            }else if(valor.getId() < id && right != null){
-                return right.exist(id);
-            } else if(valor.getId() > id && left != null){
-                return left.exist(id);
+            }else if(valor.getNumDocument() < numDocument && right != null){
+                return right.exist(numDocument);
+            } else if(valor.getNumDocument() > numDocument && left != null){
+                return left.exist(numDocument);
             } else {
                 //Throw new
                 return false;
@@ -52,21 +53,53 @@ public class BSTImpl implements BST<Client> {
     }
 
     @Override
-    public Client get(int id) {
-        System.out.println("Jump number: " + jump++);
+    public Client get(long numDocument) {
+        System.out.println("Salto");
         if(valor !=null){
-            if(valor.getId() == id){
+            if(valor.getNumDocument() == numDocument){
                 return valor;
-            }else if(valor.getId()<id && right != null){
-                return right.get(id);
-            }else if(valor.getId()>id && left != null){
-                return  left.get(id);
+            }else if(valor.getNumDocument()<numDocument && right != null){
+                return right.get(numDocument);
+            }else if(valor.getNumDocument()>numDocument && left != null){
+                return  left.get(numDocument);
             }else{
                 return null;
             }
         }else{
             return null;
         }
+    }
+
+    private List<Client> clients = new ArrayList<>();
+
+    @Override
+    public List<Client> preorder() {
+        if (valor != null){
+             clients.add(valor);
+             if(left != null) left.preorder();
+             if(right != null) right.preorder();
+        }
+        return clients;
+    }
+
+    @Override
+    public List<Client> inorder() {
+        if (valor != null){
+            if(left != null) left.inorder();
+            clients.add(valor);
+            if(right != null) right.inorder();
+        }
+        return clients;
+    }
+
+    @Override
+    public List<Client> postorder() {
+        if(valor != null){
+            if(left != null) left.postorder();
+            if(right != null) right.postorder();
+            clients.add(valor);
+        }
+        return clients;
     }
 
     public int getAmount() {
