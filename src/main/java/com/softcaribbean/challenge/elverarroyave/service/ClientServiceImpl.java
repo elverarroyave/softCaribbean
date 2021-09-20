@@ -55,14 +55,15 @@ public class ClientServiceImpl implements ClientService{
     @Override
     public Client update(long numDocument, ClientSaveCmd clientToUpdateCmd) {
         Client clientInDataBase = findByDocument(numDocument);
-
         Client clientToUpdate = clientInDataBase.toBuilder()
                 .firstName(clientToUpdateCmd.getFirstName())
                 .lastName(clientToUpdateCmd.getLastName())
                 .email(clientToUpdateCmd.getEmail())
                 .gender(clientToUpdateCmd.getGender())
                 .build();
-        return clientRepository.save(clientToUpdate);
+        Client clientUpdated = clientRepository.save(clientToUpdate);
+        initTree();
+        return clientUpdated;
     }
 
 }
